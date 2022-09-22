@@ -70,24 +70,21 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="salvar"
             android:text="@string/salvar" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/idDesistir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="voltar"
             android:text="@string/voltar"
             android:visibility="invisible" />
 
-        <LinearLayout
+        <ListView
+            android:id="@+id/listaId"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
