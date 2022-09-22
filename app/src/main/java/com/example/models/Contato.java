@@ -9,13 +9,6 @@ public class Contato {
     private String numero;
     private String data_nascimento;
 
-    public Contato(int id, String nome, String numero, String data_nascimento){
-        this.id = id;
-        this.nome = nome;
-        this.numero = numero;
-        this.data_nascimento = data_nascimento;
-    }
-
     public int getId() {
         return id;
     }

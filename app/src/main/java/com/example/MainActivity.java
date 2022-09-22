@@ -2,6 +2,8 @@ package com.example;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -54,6 +56,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void acoes(){
 
+        listagem.setOnItemLongClickListener(
+                new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapterView,
+                                                   View view, int i, long l) {
+                        new AlertDialog.Builder(view.getContext())
+                                .setMessage("Deseja realmente remover")
+                                .setPositiveButton("Confirmar",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface,
+                                                                int k) {
+                                                contatoDB.remover(dados.get(i).getId());
+                                                contatoDB.lista(dados);
+                                            }
+                                        })
+                                .setNegativeButton("cancelar",null)
+                                .create().show();
+                        return false;
+                    }
+                });
+
         listagem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -81,9 +105,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void salvar(View view){
         if(contato == null){
-            contato = new Contato(0, nome.getText().toString(),
-                    numero.getText().toString(), data_nascimento.getText().toString());
+            contato = new Contato();
         }
+
+        contato.setData_nascimento(data_nascimento.getText().toString());
+        contato.setNome(nome.getText().toString());
+        contato.setNumero(numero.getText().toString());
+
         contatoDB.inserir(contato);
         contatoDB.lista(dados);
 
@@ -91,15 +119,13 @@ public class MainActivity extends AppCompatActivity {
         ).notifyDataSetChanged();
         limpar();
 
-        contato=null;
+        contato = null;
 
         Toast.makeText(this,"Salvo com sucesso", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         limpar();
-
     }
 }

@@ -50,12 +50,11 @@ public class ContatoDB {
                 null, null, null,
                 null, "nome");
         while (query.moveToNext()){
-            Contato contatoConsulta = new Contato(
-                    Integer.parseInt(query.getString(0)),
-                    query.getString(1),
-                    query.getString(2),
-                    query.getString(3)
-            );
+            Contato contatoConsulta = new Contato();
+            contatoConsulta.setNumero(query.getString(2));
+            contatoConsulta.setNome(query.getString(1));
+            contatoConsulta.setId(Integer.parseInt(query.getString(0)));
+            contatoConsulta.setData_nascimento(query.getString(3));
             contatos.add(contatoConsulta);
         }
 
