@@ -77,7 +77,7 @@
             android:id="@+id/idDesistir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="voltar"
+            android:onClick="remover"
             android:text="@string/voltar"
             android:visibility="invisible" />
 

@@ -54,29 +54,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void acoes(){
+    public void remover(View view){
+        new AlertDialog.Builder(view.getContext())
+                .setMessage("Deseja realmente remover")
+                .setPositiveButton("Confirmar",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface,
+                                                int k) {
+                                contatoDB.remover(contato.getId());
+                                limpar();
+                                contatoDB.lista(dados);
+                                ((ArrayAdapter) listagem.getAdapter()
+                                ).notifyDataSetChanged();
+                            }
+                        })
+                .setNegativeButton("cancelar",null)
+                .create().show();
+    }
 
-        listagem.setOnItemLongClickListener(
-                new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> adapterView,
-                                                   View view, int i, long l) {
-                        new AlertDialog.Builder(view.getContext())
-                                .setMessage("Deseja realmente remover")
-                                .setPositiveButton("Confirmar",
-                                        new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface,
-                                                                int k) {
-                                                contatoDB.remover(dados.get(i).getId());
-                                                contatoDB.lista(dados);
-                                            }
-                                        })
-                                .setNegativeButton("cancelar",null)
-                                .create().show();
-                        return false;
-                    }
-                });
+    public void acoes(){
 
         listagem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -89,10 +86,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void voltar(View view){
-        limpar();
     }
 
     private void limpar(){
@@ -127,5 +120,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         limpar();
+        contatoDB.lista(dados);
     }
 }
